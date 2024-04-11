@@ -18,24 +18,6 @@ export const homeItems: HomeItem[] = [
     authorAvatar: '/img/max.jpg',
     image: '/img/c1.avif',
   },
-  {
-    id: 2,
-    title: 'Arctic Adventures',
-    type: 'Blog',
-    text: 'Last month we took a trek to the Arctic Circle. The isolation was just what we needed after...',
-    author: 'Nathan Chapman',
-    authorAvatar: '/img/nathan.jpg',
-    image: '/img/c2.avif',
-  },
-  {
-    id: 3,
-    title: 'Frolicking in the Faroe Islands',
-    type: 'Blog',
-    text: 'The Faroe Islands are a North Atlantic archipelago located 320 kilometres (200 mi) north-northwest of Scotland...',
-    author: 'Leo Giovanetti',
-    authorAvatar: '/img/leo.jpg',
-    image: '/img/c3.avif',
-  },
 ];
 
 export type NotificationItem = {

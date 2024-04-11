@@ -6,7 +6,7 @@ import { Route } from 'react-router-dom';
 
 import Tabs from './pages/Tabs';
 import { useState } from 'react';
-import AuthRouter from './router/AuthRouter';
+// import AuthRouter from './router/AuthRouter';
 
 setupIonicReact({});
 
@@ -30,7 +30,8 @@ const AppShell = () => {
           <Route
             path="/"
             render={() => {
-              return isAuthed ? <AuthRouter /> : <Tabs />;
+              // return <AuthRouter/>
+              return <Tabs />;
             }}
           />
         </IonRouterOutlet>
