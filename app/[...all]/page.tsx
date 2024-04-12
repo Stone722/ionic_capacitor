@@ -10,6 +10,7 @@ export async function generateStaticParams() {
     { all: ['home'] },
     { all: ['apps'] },
     { all: ['activity'] },
+    { all: ['settings'] },
     // unauthenticate
     { all: ['welcome'] },
     { all: ['create'] },
