@@ -2,6 +2,7 @@ import { Redirect, Route } from 'react-router-dom';
 import {
   IonIcon,
   IonLabel,
+  IonRippleEffect,
   IonRouterOutlet,
   IonTabBar,
   IonTabButton,
@@ -23,17 +24,20 @@ const Tabs = () => {
         <Route path="" render={() => <Redirect to="/home" />} exact={true} />
       </IonRouterOutlet>
       <IonTabBar slot="bottom" className="rounded-tr-[15px] rounded-tl-[15px]">
-        <IonTabButton tab="tab1" href="/home">
+        <IonTabButton tab="tab1" href="/home" className="relative">
           <IonIcon icon={home} />
           <IonLabel>Home</IonLabel>
+          <IonRippleEffect className="text-[#f73636]" />
         </IonTabButton>
-        <IonTabButton tab="tab2" href="/apps">
+        <IonTabButton tab="tab2" href="/apps" className="relative">
           <IonIcon icon={apps} />
           <IonLabel>Apps</IonLabel>
+          <IonRippleEffect className="text-[#f73636]" />
         </IonTabButton>
-        <IonTabButton tab="tab3" href="/activity">
+        <IonTabButton tab="tab3" href="/activity" className="relative">
           <IonIcon icon={statsChartSharp} />
           <IonLabel>Activity</IonLabel>
+          <IonRippleEffect className="text-[#f73636]" />
         </IonTabButton>
       </IonTabBar>
     </IonTabs>
