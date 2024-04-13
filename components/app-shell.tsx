@@ -4,9 +4,8 @@ import { StatusBar, Style } from '@capacitor/status-bar';
 import { IonReactRouter } from '@ionic/react-router';
 import { Route } from 'react-router-dom';
 
-import Tabs from './pages/Tabs';
 import { useState } from 'react';
-// import AuthRouter from './router/AuthRouter';
+import AuthRouter from './router/auth-router';
 
 setupIonicReact({});
 
@@ -17,7 +16,7 @@ window
       await StatusBar.setStyle({
         style: status.matches ? Style.Dark : Style.Light,
       });
-    } catch {}
+    } catch { }
   });
 
 const AppShell = () => {
@@ -30,8 +29,8 @@ const AppShell = () => {
           <Route
             path="/"
             render={() => {
-              // return <AuthRouter/>
-              return <Tabs />;
+              return <AuthRouter />
+              // return <Tabs />;
             }}
           />
         </IonRouterOutlet>
