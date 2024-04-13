@@ -25,7 +25,7 @@ const Header = () => {
   };
   return (
     <IonHeader>
-      <IonToolbar>
+      <IonToolbar className="px-2">
         <div
           className="flex items-center justify-start px-3 cursor-pointer"
           slot="start"
@@ -47,7 +47,7 @@ const Header = () => {
         <div
           onClick={handleRouter}
           slot="end"
-          className="h-full flex justify-center items-center cursor-pointer w-10 ion-activatable relative text-[#ff5555]"
+          className="flex justify-center items-center cursor-pointer w-10 h-10 ion-activatable relative text-[#ff5555]"
         >
           {router.routeInfo.pathname === '/settings' ? (
             <CloseIcon />
@@ -84,9 +84,9 @@ const CloseIcon = () => (
   >
     <path
       fill="currentColor"
-      fill-rule="evenodd"
+      fillRule="evenodd"
       d="M5.636 16.95a1 1 0 0 0 1.414 1.414l4.95-4.95 4.95 4.95a1 1 0 0 0 1.414-1.414L13.414 12l4.95-4.95a1 1 0 0 0-1.414-1.414L12 10.586l-4.95-4.95A1 1 0 1 0 5.636 7.05l4.95 4.95-4.95 4.95Z"
-      clip-rule="evenodd"
+      clipRule="evenodd"
     ></path>
   </svg>
 );

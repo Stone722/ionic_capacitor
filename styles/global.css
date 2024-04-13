@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+* {
+  font-family: 'Inter', sans-serif !important;
+}
+
 :root {
   --safe-area-top: env(safe-area-inset-top);
   --safe-area-bottom: env(safe-area-inset-bottom, 0);
@@ -9,7 +15,6 @@ body {
   height: 100vh;
   width: 100vw;
 }
-
 /**
  * Styles for the Icon UI component.
  *
@@ -237,4 +242,32 @@ ion-tab-button {
 
 .ion-accordion-group.ion-accordion .ion-accordion-toggle-icon {
   font-size: 10px;
+}
+
+input[type='radio']:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  position: relative;
+  background-color: #1e1e1e;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  transition: 0.3s;
+  border: 2px solid white;
+  cursor: pointer;
+}
+
+input[type='radio']:checked:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  position: relative;
+  background-color: #f73636;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  transition: 0.3s;
+  border: 2px solid white;
+  cursor: pointer;
 }

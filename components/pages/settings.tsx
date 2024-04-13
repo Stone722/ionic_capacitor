@@ -5,62 +5,82 @@ import {
   IonAccordionGroup,
   IonAccordion,
   IonLabel,
-  IonButton,
   IonRippleEffect,
-  IonRadio,
-  IonRadioGroup,
+  IonCheckbox,
+  IonTextarea,
 } from '@ionic/react';
 import Header from './header';
+import { useState } from 'react';
 
 const Settings = () => {
+  const [network, setNetwork] = useState<string>('mainnet');
+  const [lock, setLock] = useState<number>(0);
   return (
     <IonPage>
       <Header />
       <IonContent fullscreen>
         <IonAccordionGroup expand="inset">
           <IonAccordion value="first">
-            <IonItem slot="header">
+            <IonItem slot="header" className="text-[15px]">
               <NetworkIcon />
               <IonLabel>Network</IonLabel>
+              <div className="flex justify-end capitalize opacity-50">
+                {network}
+              </div>
             </IonItem>
             <div className="ion-padding" slot="content">
-              {/* <IonRadio color="primary" value="net" />
-              Mainnet
-            </div>
-            <div className="ion-padding" slot="content">
-              <IonRadio color="primiary" value="net" />
-              Testnet */}
-              <IonRadioGroup
-                allowEmptySelection={true}
-                value="mainnet"
-                className="w-full"
-              >
-                <IonRadio value="mainnet" className="w-full">
-                  Mainnet
-                </IonRadio>
-                <IonRadio value="testnet" className="w-full">
-                  Testnet
-                </IonRadio>
-              </IonRadioGroup>
+              <label className="flex p-2 cursor-pointer justify-between">
+                <div className="title px-2">Mainnet</div>
+                <input
+                  className="transform scale-125"
+                  type="radio"
+                  name="radio"
+                  value="mainnet"
+                  defaultChecked={network === 'mainnet'}
+                  onChange={e => {
+                    setNetwork(e.target.value);
+                  }}
+                />
+              </label>
+              <label className="flex p-2 cursor-pointer justify-between">
+                <div className="title px-2">Testnet</div>
+                <input
+                  className="transform scale-125"
+                  type="radio"
+                  name="radio"
+                  value="testnet"
+                  defaultChecked={network === 'testnet'}
+                  onChange={e => setNetwork(e.target.value)}
+                />
+              </label>
             </div>
           </IonAccordion>
           <IonAccordion value="second">
-            <IonItem slot="header">
+            <IonItem slot="header" className="text-[15px]">
               <LockIcon />
-              <IonLabel>Auto-lock Accounts</IonLabel>
+              <IonLabel>Auto-lock</IonLabel>
+              <div className="flex justify-end capitalize opacity-50">
+                {lock === 0 ? 'Not set up' : `${lock} hour`}
+              </div>
             </IonItem>
             <div className="ion-padding" slot="content">
-              Auto-lock after I am inactive for
+              <IonCheckbox labelPlacement="end">
+                Auto-lock after I am inactive for
+              </IonCheckbox>
+              <div>
+                <IonTextarea maxlength={10} rows={1}></IonTextarea>
+              </div>
             </div>
           </IonAccordion>
           <IonAccordion value="third">
-            <IonItem slot="header">
+            <IonItem slot="header" className="text-[15px]">
               <FAQIcon />
               <IonLabel>FAQ</IonLabel>
             </IonItem>
+            <div></div>
           </IonAccordion>
           <IonAccordion value="four">
-            <IonItem slot="header">
+            <IonItem slot="header" className="text-[15px]">
               <DotIcon />
               <IonLabel>More Options</IonLabel>
             </IonItem>
@@ -82,8 +102,8 @@ export default Settings;
 const NetworkIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="1.5em"
-    height="1.5em"
+    width="1.7em"
+    height="1.7em"
     fill="none"
     viewBox="0 0 24 24"
     className="opacity-50 mr-2"
@@ -108,8 +128,8 @@ const NetworkIcon = () => (
 const LockIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="1.5em"
-    height="1.5em"
+    width="1.7em"
+    height="1.7em"
     fill="none"
     viewBox="0 0 24 24"
     className="opacity-50 mr-2"
@@ -124,8 +144,8 @@ const LockIcon = () => (
 const FAQIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="1.5em"
-    height="1.5em"
+    width="1.7em"
+    height="1.7em"
     fill="none"
     viewBox="0 0 24 24"
     className="opacity-50 mr-2"
@@ -150,8 +170,8 @@ const FAQIcon = () => (
 const DotIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="1.5em"
-    height="1.5em"
+    width="1.7em"
+    height="1.7em"
     fill="currentColor"
     viewBox="0 0 24 24"
     className="opacity-50 mr-2"
