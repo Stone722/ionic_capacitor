@@ -22,7 +22,7 @@ window
       await StatusBar.setStyle({
         style: status.matches ? Style.Dark : Style.Light,
       });
-    } catch { }
+    } catch {}
   });
 
 const AppShell = () => {
@@ -37,8 +37,8 @@ const AppShell = () => {
               <Route
                 path="/"
                 render={() => {
-                  // return <AuthRouter/>
-                  return <Main />;
+                  return <AuthRouter />;
+                  // return <Main />;
                 }}
               />
             </IonRouterOutlet>
