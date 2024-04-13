@@ -5,36 +5,24 @@ import {
   IonCard,
   IonCardHeader,
   IonCardContent,
-  IonButton,
   IonCardTitle,
   IonIcon,
   IonCardSubtitle,
-  IonRow,
-  IonGrid,
-  IonCol,
-  IonInput,
-  IonLabel,
-  IonList,
-  IonItem,
-  IonAvatar,
-  IonCheckbox,
   IonToast,
 } from '@ionic/react';
-
-import { faker } from '@faker-js/faker';
 import { useEffect, useMemo, useState } from 'react';
-import { arrowBackCircleOutline, warning } from 'ionicons/icons';
+import { arrowBackCircleOutline } from 'ionicons/icons';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Keyboard, Zoom } from 'swiper/modules';
 import SwiperRef from 'swiper';
-
+import logo from '../../../public/logo.svg';
+import { Mnemonic } from '../../../packages/crypto';
+import RecoveryPhrase from './recovery-phrase';
+import VerifyPhrase from './verify-phrase';
+import SelectChain from './select-chain';
 import './style.css';
 import 'swiper/css';
 import 'swiper/css/keyboard';
-
-import logo from '../../../public/logo.svg';
-import Cosmos from '../../../public/img/chain/cosmos.png';
-import { Mnemonic } from '../../../packages/crypto';
 
 const CreateWallet = () => {
 
@@ -42,7 +30,7 @@ const CreateWallet = () => {
   const [blured, setBlured] = useState<boolean>(true);
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const [words, setWords] = useState<string[]>([]);
+  const [mnemonic, setMnemonic] = useState<string[]>([]);
   const [heading, setHeading] = useState<{ title?: string; description?: string }>({ title: "New Recovery Phrase" });
 
   const verifyingWordsList = useMemo(() => {
@@ -56,14 +44,14 @@ const CreateWallet = () => {
     })()
 
     return [
-      { index: one, word: words[one] },
-      { index: two, word: words[two] },
+      { index: one, word: mnemonic[one] },
+      { index: two, word: mnemonic[two] },
     ].sort((word1, word2) => {
       return word1.index < word2.index ? -1 : 1;
     });
-  }, [words])
+  }, [mnemonic])
 
-  const Back = () => {
+  const handleBack = () => {
     if (activeIndex) {
       if (swiper) swiper.slideTo(activeIndex - 1);
     } else {
@@ -71,7 +59,7 @@ const CreateWallet = () => {
     }
   }
 
-  const Next = () => {
+  const handleNext = () => {
     if (blured) {
       setBlured(false);
       return;
@@ -81,9 +69,6 @@ const CreateWallet = () => {
     }
   }
 
-  const Finish = () => {
-    history.pushState(undefined, '', '/feed');
-  }
 
   const onSlideChange = (s: SwiperRef) => {
     switch (s.activeIndex) {
@@ -115,7 +100,7 @@ const CreateWallet = () => {
       return Promise.resolve(crypto.getRandomValues(array));
     };
     Mnemonic.generateSeed(rng, 128).then((str: string) => {
-      setWords(str.split(" "))
+      setMnemonic(str.split(" "))
     });
   }, [enabled])
 
@@ -127,7 +112,7 @@ const CreateWallet = () => {
           className="w-full max-w-[900px] mx-auto h-screen bg-contain bg-bottom bg-no-repeat flex flex-col justify-start items-center gap-10 py-10"
         >
           <div className='w-full flex flex-col items-center max-w-[80%] md:max-w-[500px] gap-4 relative'>
-            <IonIcon icon={arrowBackCircleOutline} size='large' className='absolute top-0 -left-2 cursor-pointer hover:text-[#f73636] transition-all transition-duration-500' onClick={Back}></IonIcon>
+            <IonIcon icon={arrowBackCircleOutline} size='large' className='absolute top-0 -left-2 cursor-pointer hover:text-[#f73636] transition-all transition-duration-500' onClick={handleBack}></IonIcon>
             <Image src={logo} alt="Logo" />
             <IonCard className='w-full gap-3'>
               <IonCardHeader className='mt-5 !mb-2'>
@@ -155,146 +140,13 @@ const CreateWallet = () => {
                   onSlideChange={onSlideChange}
                 >
                   <SwiperSlide>
-                    <div className={'w-full flex flex-col items-stretch gap-10'.concat(activeIndex == 0 ? "" : " absolute")}>
-                      <div className='w-full flex flex-col items-stretch gap-2'>
-                        <IonGrid className={blured ? 'blur-sm' : ""}>
-                          {Array.from({ length: 4 }).map((_, i) => (
-                            <IonRow key={i} className='gap-1'>
-                              {
-                                Array.from({ length: 3 }).map((_, j) => (
-                                  <IonCol key={j}>
-                                    <div className='flex items-center justify-end gap-1'>
-                                      <IonInput disabled={blured} value={words[i * 3 + j]} fill='outline' label={`Word ${i * 3 + j + 1}`} labelPlacement='stacked' aria-label={(i * 3 + j + 1).toString()} />
-                                    </div>
-                                  </IonCol>
-                                ))
-                              }
-                            </IonRow>
-                          ))}
-                        </IonGrid>
-                        <div className='flex flex-col items-center'>
-                          <IonButton fill='clear' color='primary' className='clear-btn' size='small'>Copy to clipboard</IonButton>
-                        </div>
-                      </div>
-
-                      <div className='w-full flex flex-col items-stretch gap-4'>
-                        <div className='text-gray-100 flex flex-col gap-1'>
-                          <span className='text-[#f73636] text-sm md:text-base font-bold flex items-start'>
-                            <IonIcon icon={warning} className='mr-1 text-lg pt-[2px] min-w-7'></IonIcon>
-                            <span className='flex-shrink'>DO NOT share your recovery phrase with ANYONE.</span>
-                          </span>
-                          <span className='mx-2'>Anyone with your recovery phrase can have full control over your assets. Please stay vigilant against phishing attacks at all times.</span>
-                        </div>
-                        <div className='text-gray-100 flex flex-col gap-1'>
-                          <span className='text-[#f73636] text-sm md:text-base font-bold flex items-start'>
-                            <IonIcon icon={warning} className='mr-1 text-lg pt-[2px] min-w-7'></IonIcon>
-                            <span className='flex-shrink'>Back up the phrase safely.</span>
-                          </span>
-                          <span className='mx-2'>You will never be able to restore your account without your recovery phrase.</span>
-                        </div>
-                      </div>
-                      <IonButton disabled={!enabled} onClick={Next}>
-                        {blured ? "I understood. Show my phrase." : "Next"}
-                      </IonButton>
-                    </div>
+                    <RecoveryPhrase activeIndex={activeIndex} blured={blured} mnemonic={mnemonic} enabled={enabled} handleNext={handleNext} />
                   </SwiperSlide>
                   <SwiperSlide>
-                    <div className="flex flex-col items-stretch gap-6 py-10 h-full">
-                      <IonGrid>
-                        <IonRow className='gap-6'>
-                          {
-                            verifyingWordsList.map((item, i) => (
-                              <IonCol key={i}>
-
-                                <IonInput fill='outline' label={`Word #${item.index}`} labelPlacement="stacked" />
-
-                              </IonCol>
-                            ))
-                          }
-                        </IonRow>
-                      </IonGrid>
-                      <div className='mx-[10px]'>
-                        <IonInput fill='outline' label='Wallet Name' labelPlacement="floating" placeholder='e.g. Trading, NFT Vault, Investment'></IonInput>
-                      </div>
-                      <div className='mx-[10px]'>
-                        <IonInput fill='outline' label='Create CLORE password' labelPlacement="floating" placeholder='***'></IonInput>
-                      </div>
-                      <div className='mx-[10px]'>
-                        <IonInput fill='outline' label='Confirm CLORE password' labelPlacement="floating" placeholder='***'></IonInput>
-                      </div>
-                      <IonButton onClick={Next} className='mx-[10px]'>
-                        {blured ? "I understood. Show my phrase." : "Next"}
-                      </IonButton>
-
-                    </div>
+                    <VerifyPhrase verifyingWords={verifyingWordsList} handleNext={handleNext} blured={blured} />
                   </SwiperSlide>
                   <SwiperSlide>
-
-                    <div className='flex flex-col items-stretch py-10 px-[15px] gap-5'>
-                      <IonInput type='text' label='Search' labelPlacement='stacked' placeholder='Search networks' fill='outline' />
-                      <span className='text-center'>1 chain(s) selected</span>
-                      <div className='!bg-transparent border border-[#949494] border-opacity-75 rounded max-h-96 overflow-auto'>
-                        <div className='border-b border-[#949494] border-opacity-75 p-3'>
-                          <IonCheckbox className='w-full'>
-                            <span className='rounded-full w-full flex items-center gap-3'>
-                              <Image src={Cosmos} alt='cosmos' className='w-10' />
-                              <span>Cosmos Hub</span>
-                            </span>
-                          </IonCheckbox>
-                        </div>
-                        <div className='border-b border-[#949494] border-opacity-75 p-3'>
-                          <IonCheckbox className='w-full'>
-                            <span className='rounded-full w-full flex items-center gap-3'>
-                              <Image src={Cosmos} alt='cosmos' className='w-10' />
-                              <span>Cosmos Hub</span>
-                            </span>
-                          </IonCheckbox>
-                        </div>
-                        <div className='border-b border-[#949494] border-opacity-75 p-3'>
-                          <IonCheckbox className='w-full'>
-                            <span className='rounded-full w-full flex items-center gap-3'>
-                              <Image src={Cosmos} alt='cosmos' className='w-10' />
-                              <span>Cosmos Hub</span>
-                            </span>
-                          </IonCheckbox>
-                        </div>
-                        <div className='border-b border-[#949494] border-opacity-75 p-3'>
-                          <IonCheckbox className='w-full'>
-                            <span className='rounded-full w-full flex items-center gap-3'>
-                              <Image src={Cosmos} alt='cosmos' className='w-10' />
-                              <span>Cosmos Hub</span>
-                            </span>
-                          </IonCheckbox>
-                        </div>
-                        <div className='border-b border-[#949494] border-opacity-75 p-3'>
-                          <IonCheckbox className='w-full'>
-                            <span className='rounded-full w-full flex items-center gap-3'>
-                              <Image src={Cosmos} alt='cosmos' className='w-10' />
-                              <span>Cosmos Hub</span>
-                            </span>
-                          </IonCheckbox>
-                        </div>
-                        <div className='border-b border-[#949494] border-opacity-75 p-3'>
-                          <IonCheckbox className='w-full'>
-                            <span className='rounded-full w-full flex items-center gap-3'>
-                              <Image src={Cosmos} alt='cosmos' className='w-10' />
-                              <span>Cosmos Hub</span>
-                            </span>
-                          </IonCheckbox>
-                        </div>
-                        <div className=' border-[#949494] border-opacity-75 p-3'>
-                          <IonCheckbox className='w-full'>
-                            <span className='rounded-full w-full flex items-center gap-3'>
-                              <Image src={Cosmos} alt='cosmos' className='w-10' />
-                              <span>Cosmos Hub</span>
-                            </span>
-                          </IonCheckbox>
-                        </div>
-                      </div>
-                      <IonButton onClick={Finish} id='submit'>
-                        Finish
-                      </IonButton>
-                    </div>
+                    <SelectChain />
                   </SwiperSlide>
                 </Swiper>
 
