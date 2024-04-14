@@ -115,6 +115,7 @@ export class VaultService {
       throw new Error("Vault is already signed up");
     }
 
+
     const encrypted = await VaultService.generatePassword(
       userPassword,
       this.userPasswordSalt

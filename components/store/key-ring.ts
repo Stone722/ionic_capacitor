@@ -10,6 +10,7 @@ import { storeCreator } from "./store-creator";
 import { PreferencesCRStore } from "../../packages/cr-store";
 
 const vaultService = new VaultService(storeCreator("vault"));
+vaultService.init()
 
 const keyRingStore = new KeyRingService(
     storeCreator("keyring-v2"),
@@ -50,5 +51,6 @@ const keyRingStore = new KeyRingService(
     ]
 )
 
+keyRingStore.init()
 
 export { keyRingStore, vaultService }

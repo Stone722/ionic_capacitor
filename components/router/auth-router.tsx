@@ -1,7 +1,7 @@
 import { Redirect, Route } from 'react-router-dom';
 import { IonRouterOutlet } from '@ionic/react';
 import WelcomePage from '../pages/welcome-page/welcome-page';
-import CreateWallet from '../pages/create-wallet/create-wallet';
+import CreateWallet from '../pages/create-wallet';
 import Feed from '../pages/home';
 
 const AuthRouter = () => {

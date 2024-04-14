@@ -10,7 +10,7 @@ import {
   IonCardSubtitle,
   IonToast,
 } from '@ionic/react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { arrowBackCircleOutline } from 'ionicons/icons';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Keyboard, Zoom } from 'swiper/modules';
@@ -32,24 +32,6 @@ const CreateWallet = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [mnemonic, setMnemonic] = useState<string[]>([]);
   const [heading, setHeading] = useState<{ title?: string; description?: string }>({ title: "New Recovery Phrase" });
-
-  const verifyingWordsList = useMemo(() => {
-    const one = Math.floor(Math.random() * 12);
-    const two = (() => {
-      let r = Math.floor(Math.random() * 12);
-      while (r === one) {
-        r = Math.floor(Math.random() * 12);
-      }
-      return r;
-    })()
-
-    return [
-      { index: one, word: mnemonic[one] },
-      { index: two, word: mnemonic[two] },
-    ].sort((word1, word2) => {
-      return word1.index < word2.index ? -1 : 1;
-    });
-  }, [mnemonic])
 
   const handleBack = () => {
     if (activeIndex) {
@@ -143,7 +125,7 @@ const CreateWallet = () => {
                     <RecoveryPhrase activeIndex={activeIndex} blured={blured} mnemonic={mnemonic} enabled={enabled} handleNext={handleNext} />
                   </SwiperSlide>
                   <SwiperSlide>
-                    <VerifyPhrase verifyingWords={verifyingWordsList} handleNext={handleNext} blured={blured} />
+                    <VerifyPhrase mnemonic={mnemonic} handleNext={handleNext} blured={blured} />
                   </SwiperSlide>
                   <SwiperSlide>
                     <SelectChain />

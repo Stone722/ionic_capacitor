@@ -12,19 +12,24 @@ export class PreferencesCRStore extends BaseCRStore implements MultiGet {
   constructor(prefix: string) {
     if (!PreferencesCRStore.CRStoreProvider) {
       PreferencesCRStore.CRStoreProvider = {
-        get: (key) => Preferences.get({ key }),
-        set: (item) => {
-          const key = Object.keys(item)[0];
-          const value = item[key];
-          return Preferences.set({ key, value });
+        get: async (key: string): Promise<{ [key: string]: any }> => {
+          const value = localStorage.getItem(key);
+          return value ? { [key]: value } : {};
         },
-        multiGet: async (keys) => {
-          const values: { [key: string]: any } = {};
-          for (const key of keys) {
-            const value = await Preferences.get({ key });
-            values[key] = value;
-          }
-          return values;
+        set: async (items: { [key: string]: any }): Promise<void> => {
+          Object.entries(items).forEach(([key, value]) => {
+            localStorage.setItem(key, value);
+          });
+        },
+        multiGet: async (keys: string[]): Promise<{ [key: string]: any }> => {
+          const result: { [key: string]: any } = {};
+          keys.forEach(key => {
+            const value = localStorage.getItem(key);
+            if (value !== null) {
+              result[key] = value;
+            }
+          });
+          return result;
         },
       };
     }

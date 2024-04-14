@@ -66,7 +66,6 @@ export class Mnemonic {
     const seed = bip39.mnemonicToSeedSync(mnemonic, password);
     const masterSeed = bip32.fromSeed(seed);
     const hd = masterSeed.derivePath(path);
-
     const privateKey = hd.privateKey;
     if (!privateKey) {
       throw new Error("null hd key");
@@ -80,7 +79,6 @@ export class Mnemonic {
   ): Uint8Array {
     const seed = bip39.mnemonicToSeedSync(mnemonic, password);
     const masterKey = bip32.fromSeed(seed);
-
     return Buffer.from(bs58check.decode(masterKey.toBase58()));
   }
 
