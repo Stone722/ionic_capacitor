@@ -24,7 +24,7 @@ const Tabs = () => {
         <Route path="/settings" render={() => <Settings />} exact={true} />
         <Route path="" render={() => <Redirect to="/home" />} exact={true} />
       </IonRouterOutlet>
-      <IonTabBar slot="bottom" className="h-[70px]">
+      <IonTabBar slot="bottom" className="h-[60px]">
         <IonTabButton tab="tab1" href="/home">
           <HomeIcon />
           <IonLabel className="font-bold mt-1">Home</IonLabel>

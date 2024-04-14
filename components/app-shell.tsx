@@ -29,23 +29,19 @@ const AppShell = () => {
   const isAuthed = useState<boolean>(false);
 
   return (
-    <div className="w-screen h-screen relative flex items-center justify-center bg-white">
-      <div className="w-full h-full max-w-[350px] max-h-[650px] relative rounded-xl overflow-hidden">
-        <IonApp>
-          <IonReactRouter>
-            <IonRouterOutlet id="main">
-              <Route
-                path="/"
-                render={() => {
-                  return <AuthRouter />;
-                  // return <Main />;
-                }}
-              />
-            </IonRouterOutlet>
-          </IonReactRouter>
-        </IonApp>
-      </div>
-    </div>
+    <IonApp>
+      <IonReactRouter>
+        <IonRouterOutlet id="main">
+          <Route
+            path="/"
+            render={() => {
+              return <AuthRouter />;
+              // return <Main />;
+            }}
+          />
+        </IonRouterOutlet>
+      </IonReactRouter>
+    </IonApp>
   );
 };
 
