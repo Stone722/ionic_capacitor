@@ -1,5 +1,6 @@
 import { IonButton, IonCol, IonGrid, IonInput, IonRow } from '@ionic/react'
 import React, { useEffect, useMemo } from 'react'
+import { Toast } from '@capacitor/toast';
 import { keyRingStore } from '../../store/key-ring';
 
 
@@ -30,15 +31,19 @@ function VerifyPhrase(props: IProps) {
     }, [props.mnemonic])
 
     const handleNewMnemonicKey = async () => {
-        // const vaultId = await keyRingStore.createMnemonicKeyRing(
-        //     props.mnemonic.join(" "), {
-        //     account: 0,
-        //     change: 0,
-        //     addressIndex: 0
-        // }, "nft", "fortitude211"
-        // )
-        const vaultData = keyRingStore.needKeyCoinTypeFinalize("79b9d3fd9d971a81", "160")
-        console.log(vaultData)
+        const vaultId = await keyRingStore.createMnemonicKeyRing(
+            props.mnemonic.join(" "), {
+            account: 0,
+            change: 0,
+            addressIndex: 0
+        }, "nft", "fortitude211"
+        )
+
+        await Toast.show({
+            text:`Create Mnemonic key ring ${vaultId}`
+        })
+        // const vaultData = keyRingStore.needKeyCoinTypeFinalize("79b9d3fd9d971a81", "160")
+        // console.log(vaultData)
     }
 
 

@@ -22,6 +22,7 @@ import { CRStore } from "../cr-store";
 import { PubKeySecp256k1 } from "../crypto";
 import { ChainInfo } from "../types";
 // import { AnalyticsService } from "../analytics";
+import { Dialog } from '@capacitor/dialog';
 
 export class KeyRingService {
   protected _needMigration = false;
@@ -653,11 +654,12 @@ export class KeyRingService {
     //   }
     // }
     console.log({
-      ...vaultData.insensitive,
-      ...coinTypes,
-      keyRingName: name,
-      keyRingType: keyRing.supportedKeyRingType(),
-      ...vaultData.sensitive
+      data:vaultData.sensitive.masterSeedText
+    })
+
+    await Dialog.alert({
+      title:"create key-ring",
+      message:vaultData.insensitive?.masterSeedText?.toString()??""
     })
     const id = this.vaultService.addVault(
       "keyRing",

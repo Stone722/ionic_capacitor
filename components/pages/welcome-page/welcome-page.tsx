@@ -113,7 +113,11 @@ const WelcomePage = () => {
                     <div className='absolute top-0 z-20'>
                       <IonIcon icon={arrowBackCircleOutline} size='large' className='cursor-pointer hover:text-[#f73636] transition-all transition-duration-500' onClick={slideBack}></IonIcon>
                     </div>
-                    <IonTitle><div className='text-center font-bold text-white w-full'>Glad you're back!</div></IonTitle>
+                    <IonTitle>
+                    <div className='text-center font-bold text-white w-full'>
+                    Glad you are back!
+                    </div>
+                    </IonTitle>
                     <div className='text-white text-lg text-center'>Use an existing 12 word recovery phrase or private key. You can also import wallets from other wallet providers.</div>
                     <div className='flex flex-col justify-center gap-2'>
                       <IonButton className='capitalize'>
