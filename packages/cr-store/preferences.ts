@@ -1,6 +1,6 @@
 import { BaseCRStore } from "./base";
 import { CRStoreProvider, MultiGet } from "./interface";
-import { Preferences } from '@capacitor/preferences';
+import { Preferences as Storage } from '@capacitor/preferences';
 
 export class PreferencesCRStore extends BaseCRStore implements MultiGet {
   protected static CRStoreProvider:
@@ -12,24 +12,19 @@ export class PreferencesCRStore extends BaseCRStore implements MultiGet {
   constructor(prefix: string) {
     if (!PreferencesCRStore.CRStoreProvider) {
       PreferencesCRStore.CRStoreProvider = {
-        get: async (key: string): Promise<{ [key: string]: any }> => {
-          const value = localStorage.getItem(key);
-          return value ? { [key]: value } : {};
+        get: (key) => Storage.get({ key }),
+        set: (item) => {
+          const key = Object.keys(item)[0];
+          const value = item[key];
+          return Storage.set({ key, value });
         },
-        set: async (items: { [key: string]: any }): Promise<void> => {
-          Object.entries(items).forEach(([key, value]) => {
-            localStorage.setItem(key, value);
-          });
-        },
-        multiGet: async (keys: string[]): Promise<{ [key: string]: any }> => {
-          const result: { [key: string]: any } = {};
-          keys.forEach(key => {
-            const value = localStorage.getItem(key);
-            if (value !== null) {
-              result[key] = value;
-            }
-          });
-          return result;
+        multiGet: async (keys) => {
+          const values: { [key: string]: any } = {};
+          for (const key of keys) {
+            const value = await Storage.get({ key });
+            values[key] = value;
+          }
+          return values;
         },
       };
     }

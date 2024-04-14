@@ -1,13 +1,11 @@
-import { IonButton, IonCol, IonGrid, IonInput, IonRow } from '@ionic/react'
-import React, { useEffect, useMemo } from 'react'
-import { Toast } from '@capacitor/toast';
+import { IonButton, IonCol, IonGrid, IonInput, IonRow } from '@ionic/react';
+import React, { useMemo } from 'react';
 import { keyRingStore } from '../../store/key-ring';
-
+import { Toast } from '@capacitor/toast';
 
 interface IProps {
-    mnemonic: string[]
-    handleNext: () => void;
-    blured: boolean;
+  handleNext: () => void;
+  mnemonic:string[];
 }
 
 function VerifyPhrase(props: IProps) {
@@ -46,36 +44,48 @@ function VerifyPhrase(props: IProps) {
         // console.log(vaultData)
     }
 
-
-    return (
-        <div className="flex flex-col items-stretch gap-6 py-10 h-full">
-            <IonGrid>
-                <IonRow className='gap-6'>
-                    {
-                        verifyingWords.map((item, i) => (
-                            <IonCol key={i}>
-                                <IonInput fill='outline' label={`Word #${item.index}`} labelPlacement="stacked" />
-                            </IonCol>
-                        ))
-                    }
-                </IonRow>
-            </IonGrid>
-            <div className='mx-[10px]'>
-                <IonInput fill='outline' label='Wallet Name' labelPlacement="floating" placeholder='e.g. Trading, NFT Vault, Investment'></IonInput>
-            </div>
-            <div className='mx-[10px]'>
-                <IonInput fill='outline' label='Create CLORE password' labelPlacement="floating" placeholder='***'></IonInput>
-            </div>
-            <div className='mx-[10px]'>
-                <IonInput fill='outline' label='Confirm CLORE password' labelPlacement="floating" placeholder='***'></IonInput>
-            </div>
-
-            <IonButton onClick={handleNewMnemonicKey} className='mx-[10px]'>
-                {props.blured ? "I understood. Show my phrase." : "handleNext"}
-            </IonButton>
-
-        </div>
-    )
+  return (
+    <div className="flex flex-col items-stretch gap-4 h-full">
+      <IonGrid>
+        <IonRow className="gap-6">
+          {verifyingWords.map((item, i) => (
+            <IonCol key={i}>
+              <IonInput
+                fill="outline"
+                label={`Word #${item.index}`}
+                labelPlacement="stacked"
+              />
+            </IonCol>
+          ))}
+        </IonRow>
+      </IonGrid>
+      <div>
+        <IonInput
+          fill="outline"
+          label="Wallet Name"
+          labelPlacement="floating"
+          placeholder="e.g. Trading, NFT Vault, Investment"
+        ></IonInput>
+      </div>
+      <div>
+        <IonInput
+          fill="outline"
+          label="Create CLORE password"
+          labelPlacement="floating"
+          placeholder="***"
+        ></IonInput>
+      </div>
+      <div>
+        <IonInput
+          fill="outline"
+          label="Confirm CLORE password"
+          labelPlacement="floating"
+          placeholder="***"
+        ></IonInput>
+      </div>
+      <IonButton onClick={handleNewMnemonicKey}>Next</IonButton>
+    </div>
+  );
 }
 
-export default VerifyPhrase
+export default VerifyPhrase;

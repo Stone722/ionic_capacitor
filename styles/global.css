@@ -223,9 +223,10 @@ ion-tab-button {
   overflow: hidden;
   user-select: none;
   text-transform: none;
+  font-size: 15px;
   width: 100%;
   height: 36px;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 .rotate {
@@ -270,4 +271,46 @@ input[type='radio']:checked:after {
   transition: 0.3s;
   border: 2px solid white;
   cursor: pointer;
+}
+
+ion-button {
+  --background: #f73636;
+  --background-hover: #f73636;
+  --background-activated: #f73636;
+  --background-focused: #f73636;
+  --color: #eee;
+
+  --border-color: #f73636;
+  --border-style: solid;
+  --border-width: 1px;
+
+  --text-transform: capitalize;
+  text-transform: capitalize;
+
+  --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+}
+
+ion-button.outline-fill {
+  --background: transparent;
+  --background-hover: transparent;
+  --background-activated: transparent;
+  --background-focused: transparent;
+  --color: #f73636;
+
+  --text-transform: capitalize;
+  text-transform: capitalize;
+
+  --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+}
+
+ion-icon {
+  --color: #f73636;
+}
+
+ion-router-link {
+  --width: 100%;
 }

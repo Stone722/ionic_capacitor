@@ -556,70 +556,72 @@ export class KeyRingService {
     return vaults[0].id;
   }
 
-  finalizeKeyCoinType(
-    vaultId: string,
-    chainId: string,
-    coinType: number
-  ): void {
-    if (this.vaultService.isLocked) {
-      throw new Error("KeyRing is locked");
-    }
+  // finalizeKeyCoinType(
+  //   vaultId: string,
+  //   chainId: string,
+  //   coinType: number
+  // ): void {
+  //   if (this.vaultService.isLocked) {
+  //     throw new Error("KeyRing is locked");
+  //   }
 
-    // const chainInfo = this.chainsService.getChainInfoOrThrow(chainId);
+  //   const chainInfo = this.chainsService.getChainInfoOrThrow(chainId);
 
-    // if (
-    //   chainInfo.bip44.coinType !== coinType &&
-    //   !(chainInfo.alternativeBIP44s ?? []).find(
-    //     (path) => path.coinType === coinType
-    //   )
-    // ) {
-    //   throw new Error("Coin type is not associated to chain");
-    // }
+  //   if (
+  //     chainInfo.bip44.coinType !== coinType &&
+  //     !(chainInfo.alternativeBIP44s ?? []).find(
+  //       (path) => path.coinType === coinType
+  //     )
+  //   ) {
+  //     throw new Error("Coin type is not associated to chain");
+  //   }
 
-    const vault = this.vaultService.getVault("keyRing", vaultId);
-    if (!vault) {
-      throw new Error("Vault is null");
-    }
+  //   const vault = this.vaultService.getVault("keyRing", vaultId);
+  //   if (!vault) {
+  //     throw new Error("Vault is null");
+  //   }
 
-    if (
-      vault.insensitive["keyRingType"] !== "mnemonic" &&
-      vault.insensitive["keyRingType"] !== "keystone"
-    ) {
-      throw new Error("Key is not needed to be finalized");
-    }
+  //   if (
+  //     vault.insensitive["keyRingType"] !== "mnemonic" &&
+  //     vault.insensitive["keyRingType"] !== "keystone"
+  //   ) {
+  //     throw new Error("Key is not needed to be finalized");
+  //   }
 
-    const coinTypeTag = `keyRing-${chainId}-coinType`;
+  //   const coinTypeTag = `keyRing-${ChainIdHelper.parse(chainId).identifier
+  //     }-coinType`;
 
-    if (vault.insensitive[coinTypeTag]) {
-      throw new Error("Coin type is already finalized");
-    }
+  //   if (vault.insensitive[coinTypeTag]) {
+  //     throw new Error("Coin type is already finalized");
+  //   }
 
-    this.vaultService.setAndMergeInsensitiveToVault("keyRing", vaultId, {
-      [coinTypeTag]: coinType,
-    });
-  }
+  //   this.vaultService.setAndMergeInsensitiveToVault("keyRing", vaultId, {
+  //     [coinTypeTag]: coinType,
+  //   });
+  // }
 
-  needKeyCoinTypeFinalize(vaultId: string, chainId: string): boolean {
-    if (this.vaultService.isLocked) {
-      throw new Error("KeyRing is locked");
-    }
+  // needKeyCoinTypeFinalize(vaultId: string, chainId: string): boolean {
+  //   if (this.vaultService.isLocked) {
+  //     throw new Error("KeyRing is locked");
+  //   }
 
-    const vault = this.vaultService.getVault("keyRing", vaultId);
-    if (!vault) {
-      throw new Error("Vault is null");
-    }
+  //   const vault = this.vaultService.getVault("keyRing", vaultId);
+  //   if (!vault) {
+  //     throw new Error("Vault is null");
+  //   }
 
-    if (
-      vault.insensitive["keyRingType"] !== "mnemonic" &&
-      vault.insensitive["keyRingType"] !== "keystone"
-    ) {
-      return false;
-    }
+  //   if (
+  //     vault.insensitive["keyRingType"] !== "mnemonic" &&
+  //     vault.insensitive["keyRingType"] !== "keystone"
+  //   ) {
+  //     return false;
+  //   }
 
-    const coinTypeTag = `keyRing-${chainId}-coinType`;
+  //   const coinTypeTag = `keyRing-${ChainIdHelper.parse(chainId).identifier
+  //     }-coinType`;
 
-    return !vault.insensitive[coinTypeTag];
-  }
+  //   return !vault.insensitive[coinTypeTag];
+  // }
 
   async createMnemonicKeyRing(
     mnemonic: string,
@@ -994,16 +996,16 @@ export class KeyRingService {
   //     throw new Error("KeyRing is locked");
   //   }
 
-  //   // const chainInfo = this.chainsService.getChainInfoOrThrow(chainId);
+  //   const chainInfo = this.chainsService.getChainInfoOrThrow(chainId);
 
-  //   // if (
-  //   //   chainInfo.bip44.coinType !== coinType &&
-  //   //   !(chainInfo.alternativeBIP44s ?? []).find(
-  //   //     (path) => path.coinType === coinType
-  //   //   )
-  //   // ) {
-  //   //   throw new Error("Coin type is not associated to chain");
-  //   // }
+  //   if (
+  //     chainInfo.bip44.coinType !== coinType &&
+  //     !(chainInfo.alternativeBIP44s ?? []).find(
+  //       (path) => path.coinType === coinType
+  //     )
+  //   ) {
+  //     throw new Error("Coin type is not associated to chain");
+  //   }
 
   //   const vault = this.vaultService.getVault("keyRing", vaultId);
   //   if (!vault) {
@@ -1017,7 +1019,8 @@ export class KeyRingService {
   //     throw new Error("Key is not needed to be finalized");
   //   }
 
-  //   const coinTypeTag = `keyRing-${chainId}-coinType`;
+  //   const coinTypeTag = `keyRing-${ChainIdHelper.parse(chainId).identifier
+  //     }-coinType`;
 
   //   if (vault.insensitive[coinTypeTag]) {
   //     throw new Error("Coin type is already finalized");
