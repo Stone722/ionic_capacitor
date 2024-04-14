@@ -20,7 +20,7 @@ const Feed = () => {
                 <h3 className="text-white">{value}</h3>
               </IonText>
             </div>
-            <div className="ion-activatable btn text-white font-bold bg-[#f73636]">
+            <div className="ion-activatable btn text-white bg-[#f73636]">
               Buy
               <IonRippleEffect className="opacity-50" />
             </div>

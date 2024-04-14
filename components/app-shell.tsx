@@ -35,8 +35,8 @@ const AppShell = () => {
           <Route
             path="/"
             render={() => {
-              return <AuthRouter />;
-              // return <Main />;
+              // return <AuthRouter />;
+              return <Main />;
             }}
           />
         </IonRouterOutlet>

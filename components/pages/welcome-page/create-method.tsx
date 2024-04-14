@@ -27,13 +27,11 @@ const CreateMethod = () => {
           <IonButtons slot="start">
             <IonBackButton icon={chevronBackOutline} text={''} />
           </IonButtons>
-          <IonTitle className="IonTitlex-0 text-[20px]">
-            Create New Wallet
-          </IonTitle>
+          <IonTitle className="text-[20px]">Create New Wallet</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <div className="h-full flex flex-col justify-center items-center">
+        <div className="h-full flex flex-col justify-center items-center gap-5 bg-ani bg-bottom bg-no-repeat bg-contain">
           <IonCard className="p-2 rounded-lg">
             <IonCardHeader>
               <IonCardTitle className="text-lg">
@@ -47,7 +45,7 @@ const CreateMethod = () => {
                 component={() => <CreateWallet />}
                 className="w-full"
               >
-                <div className="ion-activatable btn text-white font-bold bg-[#f73636] h-12">
+                <div className="ion-activatable btn text-white bg-[#f73636]">
                   Create a new recovery phrase
                   <IonRippleEffect className="opacity-50" />
                 </div>
@@ -57,7 +55,7 @@ const CreateMethod = () => {
                 component={() => <ImportWallet />}
                 className="w-full"
               >
-                <div className="ion-activatable btn text-white font-bold border h-12">
+                <div className="ion-activatable btn text-white border">
                   Import existing recovery phrase
                   <IonRippleEffect className="opacity-50" />
                 </div>

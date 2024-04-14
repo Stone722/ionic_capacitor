@@ -9,13 +9,13 @@ interface IProps {
 function VerifyPhrase(props: IProps) {
   return (
     <div className="flex flex-col items-stretch gap-4 h-full">
-      <IonGrid>
+      <IonGrid className="p-0">
         <IonRow className="gap-6">
           {props.verifyingWords.map((item, i) => (
-            <IonCol key={i}>
+            <IonCol key={i} className="px-0">
               <IonInput
                 fill="outline"
-                label={`Word #${item.index}`}
+                label={`${item.index + 1}.`}
                 labelPlacement="stacked"
               />
             </IonCol>

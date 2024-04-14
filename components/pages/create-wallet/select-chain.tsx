@@ -9,7 +9,7 @@ function SelectChain() {
   };
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 py-1">
       <IonInput
         type="text"
         label="Search"

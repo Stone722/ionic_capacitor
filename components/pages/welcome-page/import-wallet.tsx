@@ -8,8 +8,6 @@ import {
   IonContent,
   IonHeader,
   IonRippleEffect,
-  IonRouterLink,
-  IonTitle,
   IonToolbar,
 } from '@ionic/react';
 
@@ -50,10 +48,10 @@ const ImportWallet = () => {
             </IonCardHeader>
             <IonCardContent className="flex flex-col gap-5">
               <p>
-                Use an existing 12 word recovery phrase or private key. You can
-                also import wallets from other wallet providers.
+                &nbsp;&nbsp; Use an existing 12 word recovery phrase or private
+                key. You can also import wallets from other wallet providers.
               </p>
-              <div className="ion-activatable btn text-white font-bold bg-[#f73636] h-12">
+              <div className="ion-activatable btn text-white bg-[#f73636]">
                 Use recovery phrase or private key
                 <IonRippleEffect className="opacity-50" />
               </div>
